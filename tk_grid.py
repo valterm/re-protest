@@ -2,6 +2,9 @@
 # from tkinter.ttk import *
 import tkinter as tk
 from tkinter import ttk
+from PIL import ImageTk, Image
+from tkinter import filedialog as fd
+import os
 
 
 def windowSetup() -> tk.Tk:
@@ -43,8 +46,64 @@ def switchFrames(window, currentFrame: tk.Frame, nextFrame):
 def headerFrame(root: tk.Tk):
     frame=ttk.Frame(root)
     frame.pack()
-    top_text_label = ttk.Label(frame, text="blablablabla\nasdlkjaslgjlfgsdkj\nofusdlgksjdfglsfdgjsfdlkj").grid(column=0, row=0, padx=15, pady=15, sticky="ns")
-    frame.grid_rowconfigure(0, weight=2)
+    
+    header_img = ImageTk.PhotoImage(Image.open("./assets/pngvn.png"))
+    panel = ttk.Label(frame, image=header_img)
+    # panel.pack(side = "bottom", fill = "both", expand = "yes")
+    panel.pack()
+
+def mainScreen(root: tk.Tk):
+
+    headerFrame(root)
+
+    frame = ttk.Frame(root)
+    # frame.pack(padx=10,pady=10,fill='x',expand=True)
+    # frame.pack(fill='x')
+    frame.pack()
+
+    ttk.Button(
+        frame, 
+        text='Configure', 
+        cursor="hand2", 
+        command=lambda:switchFrames(root, frame, userDetails)
+    ).grid(
+        column=0,
+        row=0,
+        pady=7
+    )
+
+    ttk.Button(
+        frame, 
+        text='Save Comments', 
+        cursor="hand2", 
+        command=lambda:switchFrames(root, frame, userDetails)
+    ).grid(
+        column=0,
+        row=1,
+        pady=7
+    )
+
+    ttk.Button(
+        frame, 
+        text='Delete Comments', 
+        cursor="hand2", 
+        command=lambda:switchFrames(root, frame, userDetails)
+    ).grid(
+        column=0,
+        row=2,
+        pady=7
+    )
+
+    ttk.Button(
+        frame, 
+        text='Restore Comments', 
+        cursor="hand2", 
+        command=lambda:switchFrames(root, frame, userDetails)
+    ).grid(
+        column=0,
+        row=3,
+        pady=7
+    )
 
 def userDetails(root: tk.Tk):
 
@@ -83,45 +142,59 @@ def userDetails(root: tk.Tk):
     ).grid(
         column=0,
         row=5,
-        sticky="se",
+        pady=5,
         columnspan=2
     )
     frame.grid_rowconfigure(5,weight=2)
 
-def dataFrame(root: tk.Tk):
+def selectDir(pathVar: str) -> str:
+    print("dirsel")
+    pathVar = fd.askdirectory(parent=root,initialdir="./",title='Save to directory...')
+    return path
 
-    frame = ttk.Frame(root)
-    frame.pack()
+# def dataFrame(root: tk.Tk):
+
+#     headerFrame(root)
+
+#     frame = ttk.Frame(root)
+#     frame.pack()
+
+#     ttk.Button(
+#         frame,
+#         text="Select Directory",
+#         cursor="hand2",
+#         command=lambda:selectDir(dirname)
+#     ).grid()
 
 
-
-    ttk.Button(
-        frame, 
-        text='Back', 
-        cursor="hand2", 
-        command=lambda:switchFrames(root, frame, userDetails)
-    ).grid(
-        column=0,
-        row=0,
-        sticky="se"
-    )
-    ttk.Button(
-        frame, 
-        text='Continue', 
-        cursor="hand2", 
-        command=lambda:switchFrames(root, frame, userDetails)
-    ).grid(
-        column=1,
-        row=0,
-        sticky="se"
-    )
+    # ttk.Button(
+    #     frame, 
+    #     text='Back', 
+    #     cursor="hand2", 
+    #     command=lambda:switchFrames(root, frame, userDetails)
+    # ).grid(
+    #     column=0,
+    #     row=0,
+    #     sticky="se"
+    # )
+    # ttk.Button(
+    #     frame, 
+    #     text='Continue', 
+    #     cursor="hand2", 
+    #     command=lambda:switchFrames(root, frame, userDetails)
+    # ).grid(
+    #     column=1,
+    #     row=0,
+    #     sticky="se"
+    # )
 root = windowSetup()
 
 username = tk.StringVar()
 password = tk.StringVar()
 client_id = tk.StringVar()
 client_secret = tk.StringVar()
+dirname='./'
 
-userDetails(root)
+dataFrame(root)
 
 root.mainloop()
