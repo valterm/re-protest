@@ -116,6 +116,38 @@ class ConfigPage(tk.Frame):
     def __init__(self, parent, container):
         super().__init__(container)
 
+        # Username
+        username_label = ttk.Label(self,text='Username').grid(column=0, row=1, sticky="w", padx=5, pady=5)   
+        username_entry = ttk.Entry(self,textvariable=parent.username).grid(column=1, row=1, sticky="e", padx=5, pady=5)
+        # self.grid_rowconfigure(1, weight=1)
+
+        # Password
+        password_label = ttk.Label(self,text='Password').grid(column=0, row=2, sticky="w", padx=5, pady=5)
+        password_entry = ttk.Entry(self,textvariable=parent.password,show="*").grid(column=1, row=2, sticky="e", padx=5, pady=5)
+        # self.grid_rowconfigure(2, weight=1)
+
+        # Client ID
+        client_label = ttk.Label(self,text='Client ID').grid(column=0, row=3, sticky="w", padx=5, pady=5)
+        client_entry = ttk.Entry(self,textvariable=parent.client_id).grid(column=1, row=3, sticky="w", padx=5, pady=5)
+        # self.grid_rowconfigure(3, weight=1)
+
+        # Client Secret
+        secret_label = ttk.Label(self,text='Client Secret').grid(column=0, row=4, sticky="w", padx=5, pady=5)
+        secret_entry = ttk.Entry(self,textvariable=parent.client_secret,show="*").grid(column=1, row=4, sticky="w", padx=5, pady=5)
+        # self.grid_rowconfigure(4, weight=1)
+
+        ttk.Button(
+            self, 
+            text='Continue', 
+            cursor="hand2",
+            command=lambda:[parent.show_frame(parent.MainMenu)]
+        ).grid(
+            column=0,
+            row=5,
+            pady=5,
+            columnspan=2
+        )
+        self.grid_rowconfigure(5,weight=2)
         
 class DeleteMenu(tk.Frame):
     def __init__(self, parent, container):
